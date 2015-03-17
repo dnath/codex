@@ -3,9 +3,8 @@ class Dictionary(object):
 
     @staticmethod
     def is_valid_word(word):
-        if word in Dictionary.WORDS:
-            return True
-        return False
+        return word in Dictionary.WORDS
+
 
 def __solve_boggle(board, i, j, word, history):
     if len(history) == len(board) * len(board[0]):
