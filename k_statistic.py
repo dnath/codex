@@ -5,20 +5,20 @@ def get_k_statistic(arr, k):
     if k > len(arr) or k < 1:
         return None
 
-    lower_half, upper_half = [], []
+    lower_k_part, rest = [], []
     for ele in arr:
-        if lower_half == [] or lower_half[0][1] >= ele:
-            heapq.heappush(lower_half, (-ele, ele))
-            if len(lower_half) > k:
-                key, item = heapq.heappop(lower_half)
-                heapq.heappush(upper_half, (-key, item))
+        if lower_k_part == [] or lower_k_part[0][1] >= ele:
+            heapq.heappush(lower_k_part, (-ele, ele))
+            if len(lower_k_part) > k:
+                key, item = heapq.heappop(lower_k_part)
+                heapq.heappush(rest, (-key, item))
         else:
-            heapq.heappush(upper_half, (ele, ele))
-            if len(upper_half) > len(arr) - k:
-                key, item = heapq.heappop(upper_half)
-                heapq.heappush(lower_half, (-key, item))
+            heapq.heappush(rest, (ele, ele))
+            if len(rest) > len(arr) - k:
+                key, item = heapq.heappop(rest)
+                heapq.heappush(lower_k_part, (-key, item))
 
-    return lower_half[0][1]
+    return lower_k_part[0][1]
 
 
 print get_k_statistic([2,2,2,2], 2)
